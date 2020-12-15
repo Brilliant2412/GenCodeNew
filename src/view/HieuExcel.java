@@ -13,7 +13,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JCheckBox;
@@ -34,7 +33,6 @@ public class HieuExcel extends javax.swing.JFrame {
     private final ArrayList<JCheckBox> objCheckBoxs;
     private final ArrayList<JCheckBox> subObjCheckBoxs;
     private int numObj = -1;
-    private Vector<Integer> numSubObjs;
     //private int numSubObj;
     
     private String path;
@@ -184,23 +182,14 @@ public class HieuExcel extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGenerateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerateActionPerformed
-        // TODO add your handling code here:
-        if(tfieldBrowseFile.getText().equals("")){
-            JOptionPane.showMessageDialog(this, "Please browse an Excel file");
-            return;
-        }
-        CodeGenerator generator = new CodeGenerator(tfieldBrowseFile.getText(),getPath());
-        for(int i = 0; i < subObjCheckBoxs.size(); i++){
-            if(subObjCheckBoxs.get(i).isSelected()){
-                numSubObjs.add(i);
-            }
-        }
+        // TODO add your handling code here:                                       
+        CodeGenerator generator = new CodeGenerator(tfieldBrowseFile.getText(),getPath());         
         try {
             if(numObj < 0){
                 JOptionPane.showMessageDialog(this, "Please check an object box");
                 return;
             }
-            generator.GEN(numObj, numSubObjs);
+            generator.GEN(numObj);
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage());
             return;
